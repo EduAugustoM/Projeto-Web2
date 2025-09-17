@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<DapperContext>();
 builder.Services.AddScoped<PacientesRepository>();
+builder.Services.AddScoped<MedicosRepository>();
 
 var app = builder.Build();
 

@@ -1,0 +1,69 @@
+@model IEnumerable<Models.ViewModel.MedicosViewModel>
+@{
+    ViewData["Title"] = "Lista de Médicos";
+}
+<h2>@ViewData["Title"]</h2>
+@Html.ActionLink("Novo", "Cadastro", "Medicos")
+<table class = "table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.codm)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.idade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.especialidade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CPF)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cidade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nroa)
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <th>
+                    @Html.DisplayFor(model => item.codm)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => item.nome)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => item.idade)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => item.especialidade)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => item.CPF)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => item.cidade)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => item.nroa)
+                </th>
+                <th>
+                    @Html.ActionLink("Editar", "Cadastro", "Medicos", new {codm = item.codm} )
+                    |
+                    @Html.ActionLink("Excluir", "Excluir", "Medicos", new {codm = item.codm} )
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>

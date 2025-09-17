@@ -13,7 +13,7 @@ public class DapperContext
         _connectionString = _configuration.GetConnectionString("DefaultConnection");
     }
 
-    public IDbConnection CretateConnection()
+    public IDbConnection CreateConnection()
     {
         return new SqlConnection(_connectionString);
     }

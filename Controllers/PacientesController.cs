@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Mvc;
 using Models.Data;
-using Models.Enidades;
+using Models.Entidades;
 using Models.ViewModel;
 namespace AspNet_MVC.Controllers;
 

@@ -1,10 +1,10 @@
-using System.ComponentModel.DataAnnotations;
+using.ComponentModel
 namespace Models.ViewModel;
 
-public class PacientesViewModel
+public class FuncionariosViewModel
 {
     [Display(Name = "Codigo")]
-    public int codp { get; set; }
+    public int codf { get; set; }
 
     [Display(Name = "Nome")]
     [Required(ErrorMessage = "O nome é obrigatório")]
@@ -18,11 +18,11 @@ public class PacientesViewModel
     [Required(ErrorMessage = "A cidade é obrigatório")]
     public string cidade { get; set; } = string.Empty;
 
+    [Display(Name = "Salario")]
+    [Required(ErrorMessage = "O salario é obrigatório")]
+    public string salario { get; set; } = string.Empty;
+
     [Display(Name = "CPF")]
     [Required(ErrorMessage = "O CPF é obrigatório")]
     public string CPF { get; set; } = string.Empty;
-
-    [Display(Name = "Doença")]
-    [Required(ErrorMessage = "A doença é obrigatório")]
-    public string doenca { get; set; } = string.Empty;
 }

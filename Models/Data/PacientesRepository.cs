@@ -1,6 +1,5 @@
 using Dapper;
-using Models.Enidades;
-
+using Models.Entidades;
 namespace Models.Data;
 
 public class PacientesRepository : AbstractRepository<Pacientes>
@@ -20,7 +19,7 @@ public class PacientesRepository : AbstractRepository<Pacientes>
         where codp = @codp
         ";
 
-        using (var connection = context.CretateConnection())
+        using (var connection = context.CreateConnection())
         {
             connection.ExecuteScalar(query, model);
         }
@@ -30,7 +29,7 @@ public class PacientesRepository : AbstractRepository<Pacientes>
     {
         string query = "SELECT * FROM Pacientes where codp = @id";
 
-        using (var connection = context.CretateConnection())
+        using (var connection = context.CreateConnection())
         {
             return connection.QueryFirstOrDefault<Pacientes>(query, new { id});
         }
@@ -40,7 +39,7 @@ public class PacientesRepository : AbstractRepository<Pacientes>
     {
         string query = "SELECT * FROM Pacientes";
 
-        using (var connection = context.CretateConnection())
+        using (var connection = context.CreateConnection())
         {
             return connection.Query<Pacientes>(query).ToList();
         }
@@ -50,7 +49,7 @@ public class PacientesRepository : AbstractRepository<Pacientes>
     {
        string query = "DELETE FROM Pacientes where codp = @id";
 
-        using (var connection = context.CretateConnection())
+        using (var connection = context.CreateConnection())
         {
             connection.Execute(query, new {id = model.codp });
         }
@@ -63,7 +62,7 @@ public class PacientesRepository : AbstractRepository<Pacientes>
         string query = @"INSERT INTO Pacientes(codp, nome, idade, CPF, cidade, doenca)
             VALUES (@codp, @nome, @idade, @CPF, @cidade, @doenca)";
 
-        using (var connection = context.CretateConnection())
+        using (var connection = context.CreateConnection())
         {
             var maxID = connection.QueryFirst<int>(queryID);
             model.codp = maxID + 1;

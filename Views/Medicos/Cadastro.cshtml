@@ -1,10 +1,10 @@
-@model Models.ViewModel.PacientesViewModel
+@model Models.ViewModel.MedicosViewModel
 @{
-    ViewData["Title"] = "Pacientes";
+    ViewData["Title"] = "Médicos";
 }
 <h2>@ViewData["Title"]</h2>
 
-<form asp-action="Salvar" asp-controller="Pacientes" method="post">
+<form asp-action="Salvar" asp-controller="Medicos" method="post">
     <div class="form-group">
         <label asp-for="nome"></label>
         <input asp-for="nome" class="form-control">
@@ -14,26 +14,30 @@
         <label asp-for="idade"></label>
         <input asp-for="idade" class="form-control">
         <span asp-validation-for="idade" class="text-danger"></span>
-    </div>
     <div class="form-group">
-        <label asp-for="cidade"></label>
-        <input asp-for="cidade" class="form-control">
-        <span asp-validation-for="cidade" class="text-danger"></span>
+        <label asp-for="especialidade"></label>
+        <input asp-for="especialidade" class="form-control">
+        <span asp-validation-for="especialidade" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="CPF"></label>
         <input asp-for="CPF" class="form-control">
         <span asp-validation-for="CPF" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="doenca"></label>
-        <input asp-for="doenca" class="form-control">
-        <span asp-validation-for="doenca" class="text-danger"></span>
+    <div>
+        <label asp-for="cidade"></label>
+        <input asp-for="cidade" class="form-control">
+        <span asp-validation-for="cidade" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="nroa"></label>
+        <input asp-for="nroa" class="form-control">
+        <span asp-validation-for="nroa" class="text-danger"></span>
     </div>
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Salvar</button>
     </div>
     <div>
-        <input asp-for="codp" type="hidden">
+        <input asp-for="codm" type="hidden">
     </div>
 </form>
