@@ -1,0 +1,67 @@
+@model IEnumerable<Models.ViewModel.PacientesViewModel>
+@{
+    ViewData["Title"] = "Lista de Pacientes";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@Html.ActionLink("Novo", "Cadastro", "Pacientes")
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.codp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.idade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cidade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CPF)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.doenca)
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <th>
+                    @Html.DisplayFor(model => item.codp)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => item.nome)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => item.idade)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => item.cidade)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => item.CPF)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => item.doenca)
+                </th>
+                <th>
+                    @Html.ActionLink("Editar", "Cadastro", "Pacientes", new {codp = item.codp} )
+                    |
+                    @Html.ActionLink("Excluir", "Excluir", "Pacientes", new {codp = item.codp} )
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>
+

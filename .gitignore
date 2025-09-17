@@ -1,0 +1,39 @@
+# Compiled source
+bin/
+obj/
+out/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio
+.vs/
+
+# Rider
+.idea/
+
+# Build results
+*.dll
+*.exe
+*.app
+*.appx
+*.apk
+*.log
+*.cache
+*.pdb
+
+# Packages
+*.nupkg
+*.snupkg
+packages/
+
+# Publish
+publish/
+*.Publish.xml
+
+# Configurações locais
+appsettings.Development.json
