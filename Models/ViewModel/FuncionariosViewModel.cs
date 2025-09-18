@@ -1,4 +1,4 @@
-using.ComponentModel
+using System.ComponentModel.DataAnnotations;
 namespace Models.ViewModel;
 
 public class FuncionariosViewModel

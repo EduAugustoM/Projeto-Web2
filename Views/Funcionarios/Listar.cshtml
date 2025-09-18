@@ -1,0 +1,62 @@
+@model IEnumerable<Models.ViewModel.FuncionariosViewModel>
+@{
+    ViewData["Title"] = "Lista de Funcionários";
+}
+<h2>@ViewData["Title"]</h2>
+@Html.ActionLink("Novo", "Cadastro", "Funcionarios")
+<table class = "table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.codf)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.idade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cidade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.salario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CPF)
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <th>
+                    @Html.DisplayFor(model => item.codf)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => item.nome)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => item.idade)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => item.cidade)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => item.salario)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => item.CPF)
+                </th>
+                <th>
+                    @Html.ActionLink("Editar", "Cadastro", new { id = item.codf }) |
+                    @Html.ActionLink("Excluir", "Excluir", new { id = item.codf })
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>

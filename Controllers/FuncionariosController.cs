@@ -16,6 +16,15 @@ public class FuncionariosController : Controller
     public IActionResult Index()
     {
         var ListaFuncionarios = repository.BuscarTodos();
+        var NovaListaFuncionarios = ListaFuncionarios.Select(model => new FuncionariosViewModel
+        {
+                codf = model.codf,
+                nome = model.nome,
+                idade = model.idade,
+                cidade = model.cidade,
+                salario = model.salario,
+                CPF = model.CPF
+        }).ToList();
         return View("Listar", ListaFuncionarios);
     }
     public IActionResult Cadastro(int codf = 0)
@@ -28,24 +37,7 @@ public class FuncionariosController : Controller
         else
         {
             var model = repository.Buscar(codf);
-            return View(model);
-        }
-    }
-
-    public IActionResult Excluir(int codf)
-    {
-        repository.Excluir(new Funcionarios{codf = codf});
-        return RedirectToAction("Index");
-    }
-
-    [HttpPost]
-    public IActionResult Salvar(Funcionarios model)
-    {
-        if (!ModelState.IsValid)
-        {
-            return View("Cadastro", model);
-        }
-        Funcionarios funcionarios = new Funcionarios
+            Funcionarios newModel = new Funcionarios
             {
                 codf = model.codf,
                 nome = model.nome,
@@ -53,7 +45,44 @@ public class FuncionariosController : Controller
                 cidade = model.cidade,
                 salario = model.salario,
                 CPF = model.CPF
-             };
-             if (model.codf == 0)
-             {
-                repository.Salvar(funcionarios);
+            };
+            return View(model);
+        }
+    }
+
+    public IActionResult Excluir(int codf)
+    {
+        repository.Excluir(new Funcionarios { codf = codf });
+        return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    public IActionResult Salvar(Funcionarios model)
+    {
+        if (ModelState.IsValid)
+        {
+            Funcionarios novoFuncionario = new Funcionarios
+            {
+                codf = model.codf,
+                nome = model.nome,
+                idade = model.idade,
+                cidade = model.cidade,
+                salario = model.salario,
+                CPF = model.CPF
+            };
+            if (model.codf == 0)
+            {
+                repository.Salvar(novoFuncionario);
+            }
+            else
+            {
+                repository.Atualizar(novoFuncionario);
+            }
+            return RedirectToAction("Index");
+        }
+        else
+        {
+            return View("Cadastro", model);
+        }
+    }
+}
