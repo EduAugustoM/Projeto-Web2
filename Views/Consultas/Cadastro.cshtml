@@ -1,0 +1,36 @@
+@model Models.ViewModel.ConsultasViewModel
+@{
+    ViewData["Title"] = "Consultas";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Salvar" asp-controller="Consultas" method="post">
+    <div class="form-group">
+        <label asp-for="codm"></label>
+        <input asp-for="codm"  class="form-control">          
+        <span asp-validation-for="codm" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="codp"></label>
+        <select asp-for="codp" asp-items="Model.Pacientes" class="form-control"></select>
+        <span asp-validation-for="codp" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="data"></label>
+        <input asp-for="data" class="form-control">
+        <span asp-validation-for="data" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="hora"></label>
+        <input asp-for="hora" class="form-control">
+        <span asp-validation-for="hora" class="text-danger"></span>
+    </div>    
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Salvar</button>
+    </div>
+    <div>
+        <input asp-for="codp" type="hidden">
+    </div>
+</form>
+

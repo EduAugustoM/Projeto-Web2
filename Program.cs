@@ -8,6 +8,7 @@ builder.Services.AddScoped<DapperContext>();
 builder.Services.AddScoped<PacientesRepository>();
 builder.Services.AddScoped<MedicosRepository>();
 builder.Services.AddScoped<FuncionariosRepository>();
+builder.Services.AddScoped<ConsultasRepository>();
 
 var app = builder.Build();
 

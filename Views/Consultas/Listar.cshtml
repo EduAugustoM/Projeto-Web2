@@ -1,0 +1,56 @@
+@model IEnumerable<Models.ViewModel.ConsultasViewModel>
+@{
+    ViewData["Title"] = "Lista de Consultas";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@Html.ActionLink("Novo", "Cadastro", "Consultas")
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.codm)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.codp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.data)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.hora)
+            </th>  
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <th>
+                    @Html.DisplayFor(model => item.codm)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => item.codp)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => item.data)
+                </th>
+                <th>
+                    @Html.DisplayFor(model => item.hora)
+                </th>
+                
+                <th>
+                    @Html.ActionLink("Editar", "Cadastro", "Pacientes", new {codp = item.codp} )
+                    |
+                    @Html.ActionLink("Excluir", "Excluir", "Pacientes", new {codp = item.codp} )
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>
+

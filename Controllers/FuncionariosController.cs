@@ -25,7 +25,7 @@ public class FuncionariosController : Controller
                 salario = model.salario,
                 CPF = model.CPF
         }).ToList();
-        return View("Listar", ListaFuncionarios);
+        return View("Listar", NovaListaFuncionarios);
     }
     public IActionResult Cadastro(int codf = 0)
     {
