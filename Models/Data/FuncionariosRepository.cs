@@ -58,13 +58,14 @@ public class FuncionariosRepository : AbstractRepository<Funcionarios>
 
     public override void Salvar(Funcionarios model)
     {
-        string query = @"INSERT INTO Funcionarios
-            (nome, idade, cidade, salario, CPF)
-            VALUES
-            (@nome, @idade, @cidade, @salario, @CPF)";
+        string queryID = "SELECT MAX(codf) codf FROM Funcionarios";
+        string query = @"INSERT INTO Funcionarios(codf, nome, idade, cidade, salario, CPF)
+            VALUES (@codf, @nome, @idade, @cidade, @salario, @CPF)";
 
         using (var connection = context.CreateConnection())
         {
+            var maxID = connection.QueryFirst<int>(queryID);
+            model.codf = maxID + 1;
             connection.ExecuteScalar(query, model);
         }
     }

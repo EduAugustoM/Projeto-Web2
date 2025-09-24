@@ -34,13 +34,6 @@ public class AmbulatoriosController : Controller
         if (nroa == 0)
         {
             AmbulatoriosViewModel model = new AmbulatoriosViewModel { nroa = nroa };
-            model.Medicos = repositoryMedicos.BuscarTodos().Select(
-                m => new SelectListItem
-                {
-                    Value = m.codm.ToString(),
-                    Text = m.nome
-                }
-            ).ToList();
             return View(model);
         }
         else
@@ -52,14 +45,6 @@ public class AmbulatoriosController : Controller
                 andar = model.andar,
                 capacidade = model.capacidade
             };
-
-            newModel.Medicos = repositoryMedicos.BuscarTodos().Select(
-               m => new SelectListItem
-               {
-                   Value = m.codm.ToString(),
-                   Text = m.nome
-               }
-           ).ToList();
             return View(newModel);
         }
     }

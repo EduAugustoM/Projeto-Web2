@@ -70,7 +70,6 @@ public class PacientesController : Controller
                 CPF = model.CPF,
                 doenca = model.doenca
             };
-
             if (model.codp == 0)
                 repository.Salvar(newModel);
             else

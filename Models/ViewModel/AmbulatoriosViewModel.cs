@@ -14,8 +14,5 @@ namespace Models.ViewModel
 
         [Display(Name = "Capacidade")]
         public int capacidade { get; set; }
-
-        [ValidateNever]
-        public List<SelectListItem> Medicos { get; set; }
     }
 }

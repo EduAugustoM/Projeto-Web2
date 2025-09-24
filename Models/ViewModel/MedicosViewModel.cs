@@ -1,4 +1,6 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.AspNetCore.Mvc.Rendering;
 namespace Models.ViewModel;
 
 public class MedicosViewModel
@@ -29,4 +31,6 @@ public class MedicosViewModel
     [Display(Name = "Nroa")]
     [Required(ErrorMessage = "O nroa é obrigatório")]
     public string nroa { get; set; } = string.Empty;
+    [ValidateNever]
+    public List<SelectListItem> Ambulatorios { get; set; }
 }

@@ -31,7 +31,7 @@ public class FuncionariosController : Controller
     {
         if (codf == 0)
         {
-            Funcionarios model = new Funcionarios { codf = codf };
+            FuncionariosViewModel model = new FuncionariosViewModel { codf = codf };
             return View(model);
         }
         else
@@ -46,7 +46,7 @@ public class FuncionariosController : Controller
                 salario = model.salario,
                 CPF = model.CPF
             };
-            return View(model);
+            return View(newModel);
         }
     }
 
@@ -71,18 +71,10 @@ public class FuncionariosController : Controller
                 CPF = model.CPF
             };
             if (model.codf == 0)
-            {
                 repository.Salvar(novoFuncionario);
-            }
             else
-            {
                 repository.Atualizar(novoFuncionario);
-            }
-            return RedirectToAction("Index");
         }
-        else
-        {
-            return View("Cadastro", model);
-        }
+        return RedirectToAction("Index");
     }
 }

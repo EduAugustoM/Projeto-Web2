@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Models.Data;
 using Models.Entidades;
 using Models.ViewModel;
@@ -33,6 +34,13 @@ public class MedicosController : Controller
         if (codm == 0)
         {
             MedicosViewModel model = new MedicosViewModel { codm = codm };
+            model.Ambulatorios = repository.BuscarTodos().Select(
+                a => new SelectListItem
+                {
+                    Value = a.nroa.ToString(),
+                    Text = a.nroa
+                }
+            ).ToList();
             return View(model);
         }
         else
@@ -48,6 +56,13 @@ public class MedicosController : Controller
                 cidade = model.cidade,
                 nroa = model.nroa
             };
+            newModel.Ambulatorios = repository.BuscarTodos().Select(
+                a => new SelectListItem
+                {
+                    Value = a.nroa.ToString(),
+                    Text = a.nroa
+                }
+            ).ToList();
             return View(newModel);
         }
     }
