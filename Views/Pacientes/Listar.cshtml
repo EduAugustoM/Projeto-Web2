@@ -5,13 +5,16 @@
 
 <h2>@ViewData["Title"]</h2>
 
-@Html.ActionLink("Novo", "Cadastro", "Pacientes")
+@Html.ActionLink("Novo", "Cadastro", "Pacientes", null, new { @class = "btn btn-primary mb-3" })
 
-<table class="table">
+<table class="table table-striped">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.codp)
+            </th>
+            <th>
+                Imagem
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.nome)
@@ -29,7 +32,7 @@
                 @Html.DisplayNameFor(model => model.doenca)
             </th>
             <th>
-
+                Ações
             </th>
         </tr>
     </thead>
@@ -37,31 +40,39 @@
         @foreach(var item in Model)
         {
             <tr>
-                <th>
+                <td>
                     @Html.DisplayFor(model => item.codp)
-                </th>
-                <th>
+                </td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.imagem))
+                    {
+                        <img src="~/imagens/pacientes/@item.imagem" alt="Foto" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;" />
+                    }
+                    else
+                    {
+                        <span class="text-muted">Sem foto</span>
+                    }
+                </td>
+                <td>
                     @Html.DisplayFor(model => item.nome)
-                </th>
-                <th>
+                </td>
+                <td>
                     @Html.DisplayFor(model => item.idade)
-                </th>
-                <th>
+                </td>
+                <td>
                     @Html.DisplayFor(model => item.cidade)
-                </th>
-                <th>
+                </td>
+                <td>
                     @Html.DisplayFor(model => item.CPF)
-                </th>
-                <th>
+                </td>
+                <td>
                     @Html.DisplayFor(model => item.doenca)
-                </th>
-                <th>
-                    @Html.ActionLink("Editar", "Cadastro", "Pacientes", new {codp = item.codp} )
-                    |
-                    @Html.ActionLink("Excluir", "Excluir", "Pacientes", new {codp = item.codp} )
-                </th>
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Cadastro", "Pacientes", new {codp = item.codp}, new { @class = "btn btn-sm btn-warning" })
+                    @Html.ActionLink("Excluir", "Excluir", "Pacientes", new {codp = item.codp}, new { @class = "btn btn-sm btn-danger", onclick = "return confirm('Deseja realmente excluir este paciente?');" })
+                </td>
             </tr>
         }
     </tbody>
 </table>
-

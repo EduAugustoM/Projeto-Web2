@@ -1,4 +1,7 @@
+using AspNet_MVC.Models.Entidades;
 using Models.Data;
+using Models.Entidades;
+using Models.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,10 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<DapperContext>();
 builder.Services.AddScoped<PacientesRepository>();
-builder.Services.AddScoped<MedicosRepository>();
-builder.Services.AddScoped<FuncionariosRepository>();
 builder.Services.AddScoped<ConsultasRepository>();
+builder.Services.AddScoped<MedicosRepository>();
 builder.Services.AddScoped<AmbulatoriosRepository>();
+builder.Services.AddScoped<FuncionariosRepository>();
+builder.Services.AddScoped<ConsultasServices>();
 
 var app = builder.Build();
 
@@ -32,6 +36,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
-
 
 app.Run();

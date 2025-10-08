@@ -1,4 +1,6 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
+
 namespace Models.ViewModel;
 
 public class PacientesViewModel
@@ -11,11 +13,11 @@ public class PacientesViewModel
     public string nome { get; set; } = string.Empty;
 
     [Display(Name = "Idade")]
-    [Required(ErrorMessage = "A idade é obrigatório")]
+    [Required(ErrorMessage = "A idade é obrigatória")]
     public int idade { get; set; }
 
     [Display(Name = "Cidade")]
-    [Required(ErrorMessage = "A cidade é obrigatório")]
+    [Required(ErrorMessage = "A cidade é obrigatória")]
     public string cidade { get; set; } = string.Empty;
 
     [Display(Name = "CPF")]
@@ -23,6 +25,10 @@ public class PacientesViewModel
     public string CPF { get; set; } = string.Empty;
 
     [Display(Name = "Doença")]
-    [Required(ErrorMessage = "A doença é obrigatório")]
+    [Required(ErrorMessage = "A doença é obrigatória")]
     public string doenca { get; set; } = string.Empty;
+
+    [Display(Name = "Imagem")]
+    public IFormFile? ImagemArquivo { get; set; }
+    public string? imagem { get; set; }
 }

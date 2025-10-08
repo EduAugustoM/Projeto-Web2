@@ -37,3 +37,12 @@ publish/
 
 # Configurações locais
 appsettings.Development.json
+*.sql
+
+# Ignorar imagens
+*.jpg
+*.jpeg
+*.png
+*.JPG
+*.JPEG
+*.PNG

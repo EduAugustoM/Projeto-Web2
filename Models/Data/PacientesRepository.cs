@@ -9,15 +9,17 @@ public class PacientesRepository : AbstractRepository<Pacientes>
     {
         this.context = _context;
     }
+    
     public override void Atualizar(Pacientes model)
     {
         string query = @"UPDATE Pacientes SET
             nome = @nome, 
-            idade = @idade, 
-            CPF = @cpf, 
-            doenca = @doenca
-        where codp = @codp
-        ";
+            idade = @idade,
+            cidade = @cidade,
+            CPF = @CPF, 
+            doenca = @doenca,
+            imagem = @imagem
+        WHERE codp = @codp";
 
         using (var connection = context.CreateConnection())
         {
@@ -27,11 +29,11 @@ public class PacientesRepository : AbstractRepository<Pacientes>
 
     public override Pacientes Buscar(int id)
     {
-        string query = "SELECT * FROM Pacientes where codp = @id";
+        string query = "SELECT * FROM Pacientes WHERE codp = @id";
 
         using (var connection = context.CreateConnection())
         {
-            return connection.QueryFirstOrDefault<Pacientes>(query, new { id});
+            return connection.QueryFirstOrDefault<Pacientes>(query, new { id });
         }
     }
 
@@ -47,11 +49,11 @@ public class PacientesRepository : AbstractRepository<Pacientes>
 
     public override void Excluir(Pacientes model)
     {
-       string query = "DELETE FROM Pacientes where codp = @id";
+        string query = "DELETE FROM Pacientes WHERE codp = @id";
 
         using (var connection = context.CreateConnection())
         {
-            connection.Execute(query, new {id = model.codp });
+            connection.Execute(query, new { id = model.codp });
         }
     }
 
@@ -59,8 +61,8 @@ public class PacientesRepository : AbstractRepository<Pacientes>
     {
         string queryID = "SELECT MAX(codp) codp FROM Pacientes";
 
-        string query = @"INSERT INTO Pacientes(codp, nome, idade, CPF, cidade, doenca)
-            VALUES (@codp, @nome, @idade, @CPF, @cidade, @doenca)";
+        string query = @"INSERT INTO Pacientes(codp, nome, idade, CPF, cidade, doenca, imagem)
+            VALUES (@codp, @nome, @idade, @CPF, @cidade, @doenca, @imagem)";
 
         using (var connection = context.CreateConnection())
         {
