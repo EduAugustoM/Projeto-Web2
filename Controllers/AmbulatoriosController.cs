@@ -4,53 +4,32 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Models.Data;
 using Models.Entidades;
+using Models.Services;
 using Models.ViewModel;
 namespace AspNet_MVC.Controllers;
 
 public class AmbulatoriosController : Controller
 {
-    private readonly AmbulatoriosRepository repository;
-    private readonly MedicosRepository repositoryMedicos;
+    private readonly AmbulatoriosServices services;
 
-    public AmbulatoriosController(AmbulatoriosRepository _repository, MedicosRepository _repositoryMedicos)
+    public AmbulatoriosController(AmbulatoriosServices _services)
     {
-        repository = _repository;
-        repositoryMedicos = _repositoryMedicos;
+        services = _services;
     }
 
     public IActionResult Index()
     {
-        var ListaAmbulatorios = repository.BuscarTodos();
-        var NovaListaAmbulatorios = ListaAmbulatorios.Select(model => new AmbulatoriosViewModel
-        {
-            nroa = model.nroa,
-            andar = model.andar,
-            capacidade = model.capacidade
-        }).ToList();
-        return View("Listar", NovaListaAmbulatorios);
+        return View("Listar", services.BuscarTodos());
     }
+
     public IActionResult Cadastro(int nroa = 0)
     {
-        if (nroa == 0)
-        {
-            AmbulatoriosViewModel model = new AmbulatoriosViewModel { nroa = nroa };
-            return View(model);
-        }
-        else
-        {
-            var model = repository.Buscar(nroa);
-            AmbulatoriosViewModel newModel = new AmbulatoriosViewModel
-            {
-                nroa = model.nroa,
-                andar = model.andar,
-                capacidade = model.capacidade
-            };
-            return View(newModel);
-        }
+        var model = services.BuscaAmbulatorio(nroa);
+        return View(model);
     }
-    public IActionResult Excluir(int nroa)
+    public IActionResult Excluir(int nroa, int andar, int capacidade)
     {
-        repository.Excluir(new Ambulatorios { nroa = nroa });
+        services.ExcluirAmbulatorio(nroa, andar, capacidade);
         return RedirectToAction("Index");
     }
     [HttpPost]
@@ -58,13 +37,7 @@ public class AmbulatoriosController : Controller
     {
         if (ModelState.IsValid)
         {
-            Ambulatorios ambulatorio = new Ambulatorios
-            {
-                nroa = model.nroa,
-                andar = model.andar,
-                capacidade = model.capacidade
-            };
-            repository.Salvar(ambulatorio);
+            services.SalvarAmbulatorio(model);
         }
         return RedirectToAction("Index");
     }
