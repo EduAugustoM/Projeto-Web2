@@ -37,7 +37,7 @@ public class FuncionariosController : Controller
         else
         {
             var model = repository.Buscar(codf);
-            Funcionarios newModel = new Funcionarios
+            FuncionariosViewModel newModel = new FuncionariosViewModel
             {
                 codf = model.codf,
                 nome = model.nome,

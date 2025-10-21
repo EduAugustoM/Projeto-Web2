@@ -30,58 +30,28 @@ namespace Models.Services
 
 
             repository.Salvar(newModel);
-
-            //repository.Atualizar(newModel);
         }
 
-        public ConsultasViewModel BuscaConsulta(int codm = 0, DateTime? data = null, TimeSpan? hora = null)
+        public ConsultasViewModel BuscaConsulta()
         {
-            ConsultasViewModel model;
-            if (codm == 0)
-            {
-                model = new ConsultasViewModel { codm = codm };
-                model.Pacientes = repositoryPacientes.BuscarTodos().Select(
-                    item => new SelectListItem
-                    {
-                        Value = item.codp.ToString(),
-                        Text = item.nome
-                    }
-                ).ToList();
-                model.Medicos = repositoryMedicos.BuscarTodos().Select(
-                    item => new SelectListItem
-                    {
-                        Value = item.codm.ToString(),
-                        Text = item.nome
-                    }
-                ).ToList();
-            }
-            else
-            {
-                var modelDB = repository.Buscar(codm, data.GetValueOrDefault(), hora.GetValueOrDefault());
-                model = new ConsultasViewModel
+            var model = new ConsultasViewModel();
+            model.data = DateTime.Today;
+            model.Pacientes = repositoryPacientes.BuscarTodos().Select(
+                item => new SelectListItem
                 {
-                    codm = modelDB.codm,
-                    codp = modelDB.codp,
-                    data = modelDB.data,
-                    hora = modelDB.hora
-                };
+                    Value = item.codp.ToString(),
+                    Text = item.nome
+                }
+            ).ToList();
 
-                model.Pacientes = repositoryPacientes.BuscarTodos().Select(
-                   p => new SelectListItem
-                   {
-                       Value = p.codp.ToString(),
-                       Text = p.nome
-                   }
-               ).ToList();
-                model.Medicos = repositoryMedicos.BuscarTodos().Select(
-                    item => new SelectListItem
-                    {
-                        Value = item.codm.ToString(),
-                        Text = item.nome
-                    }
-                ).ToList();
-            }
-
+            model.Medicos = repositoryMedicos.BuscarTodos().Select(
+                item => new SelectListItem
+                {
+                    Value = item.codm.ToString(),
+                    Text = item.nome
+                }
+            ).ToList();
+            
             return model;
         }
 

@@ -45,9 +45,7 @@
                 </th>
                 
                 <th>
-                    @Html.ActionLink("Editar", "Cadastro", "Pacientes", new {codp = item.codp} )
-                    |
-                    @Html.ActionLink("Excluir", "Excluir", "Pacientes", new {codp = item.codp} )
+                    @Html.ActionLink("Excluir", "Excluir", "Consultas", new {codm = item.codm, data = item.data, hora = item.hora} )
                 </th>
             </tr>
         }

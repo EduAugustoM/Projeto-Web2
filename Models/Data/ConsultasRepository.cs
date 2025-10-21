@@ -11,12 +11,6 @@ public class ConsultasRepository
     {
         this.context = _context;
     }
-    public void Atualizar(Consultas model)
-    {
-        var modelBD = Buscar(model.codm, model.data, model.hora);
-        Excluir(modelBD);
-        Salvar(modelBD);
-    }
 
     public Consultas? Buscar(int id, DateTime date, TimeSpan hora)
     {

@@ -53,8 +53,8 @@
                     @Html.DisplayFor(model => item.CPF)
                 </th>
                 <th>
-                    @Html.ActionLink("Editar", "Cadastro", new { id = item.codf }) |
-                    @Html.ActionLink("Excluir", "Excluir", new { id = item.codf })
+                    @Html.ActionLink("Editar", "Cadastro", new { codf = item.codf }) |
+                    @Html.ActionLink("Excluir", "Excluir", new { codf = item.codf })
                 </th>
             </tr>
         }

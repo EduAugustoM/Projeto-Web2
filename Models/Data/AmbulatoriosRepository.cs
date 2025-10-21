@@ -13,9 +13,14 @@ public class AmbulatoriosRepository
     }
     public void Atualizar(Ambulatorios model)
     {
-        var modelBD = Buscar(model.nroa);
-        Excluir(modelBD);
-        Salvar(modelBD);
+        string query = @"UPDATE Ambulatorios 
+                        SET andar = @andar, capacidade = @capacidade 
+                        WHERE nroa = @nroa";
+
+        using (var connection = context.CreateConnection())
+        {
+            connection.Execute(query, model);
+        }
     }
 
     public Ambulatorios? Buscar(int id)

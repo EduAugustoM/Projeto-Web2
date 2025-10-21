@@ -22,7 +22,16 @@ namespace Models.Services
                 andar = model.andar,
                 capacidade = model.capacidade
             };
-            repository.Salvar(newModel);
+
+            var ambulatorioExistente = repository.Buscar(newModel.nroa);
+            if (ambulatorioExistente != null)
+            {
+                repository.Atualizar(newModel);
+            }
+            else
+            {
+                repository.Salvar(newModel);
+            }
         }
         public AmbulatoriosViewModel BuscaAmbulatorio(int nroa = 0)
         {

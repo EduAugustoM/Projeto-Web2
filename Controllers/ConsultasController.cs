@@ -21,9 +21,9 @@ public class ConsultasController : Controller
     {       
         return View("Listar", services.BuscarTodos());
     }
-    public IActionResult Cadastro(int codm = 0, DateTime? data = null, TimeSpan? hora = null)
+    public IActionResult Cadastro()
     {
-        var model = services.BuscaConsulta(codm, data, hora);
+        var model = services.BuscaConsulta();
         return View(model);
     }
 
