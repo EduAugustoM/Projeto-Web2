@@ -37,32 +37,32 @@
         @foreach(var item in Model)
         {
             <tr>
-                <th>
+                <td>
                     @Html.DisplayFor(model => item.codm)
-                </th>
-                <th>
+                </td>
+                <td>
                     @Html.DisplayFor(model => item.nome)
-                </th>
-                <th>
+                </td>
+                <td>
                     @Html.DisplayFor(model => item.idade)
-                </th>
-                <th>
+                </td>
+                <td>
                     @Html.DisplayFor(model => item.especialidade)
-                </th>
-                <th>
+                </td>
+                <td>
                     @Html.DisplayFor(model => item.CPF)
-                </th>
-                <th>
+                </td>
+                <td>
                     @Html.DisplayFor(model => item.cidade)
-                </th>
-                <th>
+                </td>
+                <td>
                     @Html.DisplayFor(model => item.nroa)
-                </th>
-                <th>
+                </td>
+                <td>
                     @Html.ActionLink("Editar", "Cadastro", "Medicos", new {codm = item.codm} )
                     |
                     @Html.ActionLink("Excluir", "Excluir", "Medicos", new {codm = item.codm} )
-                </th>
+                </td>
             </tr>
         }
     </tbody>

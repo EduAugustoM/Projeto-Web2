@@ -28,21 +28,21 @@
         @foreach(var item in Model)
         {
             <tr>
-                <th>
+                <td>
                     @Html.DisplayFor(model => item.nroa)
-                </th>
-                <th>
+                </td>
+                <td>
                     @Html.DisplayFor(model => item.andar)
-                </th>
-                <th>
+                </td>
+                <td>
                     @Html.DisplayFor(model => item.capacidade)
-                </th>
+                </td>
                 
-                <th>
+                <td>
                     @Html.ActionLink("Editar", "Cadastro", "Ambulatorios", new {nroa = item.nroa} )
                     |
                     @Html.ActionLink("Excluir", "Excluir", "Ambulatorios", new {nroa = item.nroa} )
-                </th>
+                </td>
             </tr>
         }
     </tbody>

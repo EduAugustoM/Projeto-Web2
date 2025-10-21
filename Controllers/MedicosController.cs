@@ -1,106 +1,50 @@
-using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Models.Data;
-using Models.Entidades;
+using Models.Services;
 using Models.ViewModel;
-namespace AspNet_MVC.Controllers;
 
-public class MedicosController : Controller
+namespace AspNet_MVC.Controllers
 {
-    private readonly MedicosRepository repository;
-    public MedicosController(MedicosRepository _repository)
+    public class MedicosController : Controller
     {
-        repository = _repository;
-    }
+        private readonly MedicosServices services;
 
-    public IActionResult Index()
-    {
-        var ListaMedicos = repository.BuscarTodos();
-        var NovaListaMedicos = ListaMedicos.Select(model => new MedicosViewModel
+        public MedicosController(MedicosServices _services)
         {
-                codm = model.codm,
-                nome = model.nome,
-                idade = model.idade,
-                especialidade = model.especialidade,
-                CPF = model.CPF,
-                cidade = model.cidade,
-                nroa = model.nroa
-        }).ToList();
-        return View("Listar", NovaListaMedicos);
-    }
-    public IActionResult Cadastro(int codm = 0)
-    {
-        if (codm == 0)
+            services = _services;
+        }
+
+        public IActionResult Index()
         {
-            MedicosViewModel model = new MedicosViewModel { codm = codm };
-            model.Ambulatorios = repository.BuscarTodos().Select(
-                a => new SelectListItem
-                {
-                    Value = a.nroa.ToString(),
-                    Text = a.nroa
-                }
-            ).ToList();
+            var listaMedicos = services.BuscarTodos();
+            return View("Listar", listaMedicos);
+        }
+
+        public IActionResult Cadastro(int codm = 0)
+        {
+            var model = services.BuscarMedico(codm);
             return View(model);
         }
-        else
+
+        public IActionResult Excluir(int codm)
         {
-            var model = repository.Buscar(codm);
-            MedicosViewModel newModel = new MedicosViewModel
-            {
-                codm = model.codm,
-                nome = model.nome,
-                idade = model.idade,
-                especialidade = model.especialidade,
-                CPF = model.CPF,
-                cidade = model.cidade,
-                nroa = model.nroa
-            };
-            newModel.Ambulatorios = repository.BuscarTodos().Select(
-                a => new SelectListItem
-                {
-                    Value = a.nroa.ToString(),
-                    Text = a.nroa
-                }
-            ).ToList();
-            return View(newModel);
+            services.ExcluirMedico(codm);
+            return RedirectToAction("Index");
         }
-    }
 
-    public IActionResult Excluir(int codm)
-    {
-        repository.Excluir(new Medicos{codm = codm});
-        return RedirectToAction("Index");
-    }
-
-    [HttpPost]
-    public IActionResult Salvar(MedicosViewModel model)
-    {
-        if (ModelState.IsValid)
+        [HttpPost]
+        public IActionResult Salvar(MedicosViewModel model)
         {
-            Medicos medicos = new Medicos
+            if (ModelState.IsValid)
             {
-                codm = model.codm,
-                nome = model.nome,
-                idade = model.idade,
-                especialidade = model.especialidade,
-                CPF = model.CPF,
-                cidade = model.cidade,
-                nroa = model.nroa
-            };
-            if (model.codm == 0)
-            {
-                repository.Salvar(medicos);
+                services.SalvarMedico(model);
+                return RedirectToAction("Index");
             }
             else
             {
-                repository.Atualizar(medicos);
+                var modelComAmbulatorios = services.BuscarMedico(model.codm);
+                model.Ambulatorios = modelComAmbulatorios.Ambulatorios;
+                return View("Cadastro", model);
             }
-            return RedirectToAction("Index");
-        }
-        else
-        {
-            return View("Cadastro", model);
         }
     }
 }

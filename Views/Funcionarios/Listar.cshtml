@@ -34,28 +34,28 @@
         @foreach(var item in Model)
         {
             <tr>
-                <th>
+                <td>
                     @Html.DisplayFor(model => item.codf)
-                </th>
-                <th>
+                </td>
+                <td>
                     @Html.DisplayFor(model => item.nome)
-                </th>
-                <th>
+                </td>
+                <td>
                     @Html.DisplayFor(model => item.idade)
-                </th>
-                <th>
+                </td>
+                <td>
                     @Html.DisplayFor(model => item.cidade)
-                </th>
-                <th>
+                </td>
+                <td>
                     @Html.DisplayFor(model => item.salario)
-                </th>
-                <th>
+                </td>
+                <td>
                     @Html.DisplayFor(model => item.CPF)
-                </th>
-                <th>
+                </td>
+                <td>
                     @Html.ActionLink("Editar", "Cadastro", new { codf = item.codf }) |
                     @Html.ActionLink("Excluir", "Excluir", new { codf = item.codf })
-                </th>
+                </td>
             </tr>
         }
     </tbody>

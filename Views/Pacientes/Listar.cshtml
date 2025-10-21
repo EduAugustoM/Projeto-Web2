@@ -7,7 +7,7 @@
 
 @Html.ActionLink("Novo", "Cadastro", "Pacientes", null, new { @class = "btn btn-primary mb-3" })
 
-<table class="table table-striped">
+<table class="table">
     <thead>
         <tr>
             <th>
@@ -69,8 +69,9 @@
                     @Html.DisplayFor(model => item.doenca)
                 </td>
                 <td>
-                    @Html.ActionLink("Editar", "Cadastro", "Pacientes", new {codp = item.codp}, new { @class = "btn btn-sm btn-warning" })
-                    @Html.ActionLink("Excluir", "Excluir", "Pacientes", new {codp = item.codp}, new { @class = "btn btn-sm btn-danger", onclick = "return confirm('Deseja realmente excluir este paciente?');" })
+                    @Html.ActionLink("Editar", "Cadastro", "Pacientes", new {codp = item.codp})
+                    |
+                    @Html.ActionLink("Excluir", "Excluir", "Pacientes", new {codp = item.codp})
                 </td>
             </tr>
         }

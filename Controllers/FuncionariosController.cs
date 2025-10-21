@@ -1,80 +1,44 @@
-using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Mvc;
-using Models.Data;
-using Models.Entidades;
+using Models.Services;
 using Models.ViewModel;
-namespace AspNet_MVC.Controllers;
 
-public class FuncionariosController : Controller
+namespace AspNet_MVC.Controllers
 {
-    private readonly FuncionariosRepository repository;
-    public FuncionariosController(FuncionariosRepository _repository)
+    public class FuncionariosController : Controller
     {
-        repository = _repository;
-    }
+        private readonly FuncionariosServices services;
 
-    public IActionResult Index()
-    {
-        var ListaFuncionarios = repository.BuscarTodos();
-        var NovaListaFuncionarios = ListaFuncionarios.Select(model => new FuncionariosViewModel
+        public FuncionariosController(FuncionariosServices _services)
         {
-                codf = model.codf,
-                nome = model.nome,
-                idade = model.idade,
-                cidade = model.cidade,
-                salario = model.salario,
-                CPF = model.CPF
-        }).ToList();
-        return View("Listar", NovaListaFuncionarios);
-    }
-    public IActionResult Cadastro(int codf = 0)
-    {
-        if (codf == 0)
+            services = _services;
+        }
+
+        public IActionResult Index()
         {
-            FuncionariosViewModel model = new FuncionariosViewModel { codf = codf };
+            var listaFuncionarios = services.BuscarTodos();
+            return View("Listar", listaFuncionarios);
+        }
+
+        public IActionResult Cadastro(int codf = 0)
+        {
+            var model = services.BuscarFuncionario(codf);
             return View(model);
         }
-        else
-        {
-            var model = repository.Buscar(codf);
-            FuncionariosViewModel newModel = new FuncionariosViewModel
-            {
-                codf = model.codf,
-                nome = model.nome,
-                idade = model.idade,
-                cidade = model.cidade,
-                salario = model.salario,
-                CPF = model.CPF
-            };
-            return View(newModel);
-        }
-    }
 
-    public IActionResult Excluir(int codf)
-    {
-        repository.Excluir(new Funcionarios { codf = codf });
-        return RedirectToAction("Index");
-    }
-
-    [HttpPost]
-    public IActionResult Salvar(Funcionarios model)
-    {
-        if (ModelState.IsValid)
+        public IActionResult Excluir(int codf)
         {
-            Funcionarios novoFuncionario = new Funcionarios
-            {
-                codf = model.codf,
-                nome = model.nome,
-                idade = model.idade,
-                cidade = model.cidade,
-                salario = model.salario,
-                CPF = model.CPF
-            };
-            if (model.codf == 0)
-                repository.Salvar(novoFuncionario);
-            else
-                repository.Atualizar(novoFuncionario);
+            services.ExcluirFuncionario(codf);
+            return RedirectToAction("Index");
         }
-        return RedirectToAction("Index");
+
+        [HttpPost]
+        public IActionResult Salvar(FuncionariosViewModel model) // Alterado para receber o ViewModel
+        {
+            if (ModelState.IsValid)
+            {
+                services.SalvarFuncionario(model);
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
