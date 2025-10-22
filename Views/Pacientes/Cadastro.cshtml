@@ -2,9 +2,10 @@
 @{
     ViewData["Title"] = "Pacientes";
 }
+
 <h2>@ViewData["Title"]</h2>
 
-<form asp-action="Salvar" asp-controller="Pacientes" method="post" enctype="multipart/form-data">
+<form asp-action="Salvar" asp-controller="Pacientes" method="post" enctype="multipart/form-data" id="formPaciente">
     <div class="form-group">
         <label asp-for="nome"></label>
         <input asp-for="nome" class="form-control">
@@ -15,11 +16,29 @@
         <input asp-for="idade" class="form-control">
         <span asp-validation-for="idade" class="text-danger"></span>
     </div>
+    
+    <!-- Estado -->
     <div class="form-group">
-        <label asp-for="cidade"></label>
-        <input asp-for="cidade" class="form-control">
+        <label asp-for="estado" class="control-label"></label>
+        <select asp-for="estado" class="form-control" asp-items="Model.Estados" id="estadoSelect">
+            <option value="">Selecione um estado</option>
+        </select>
+        <span asp-validation-for="estado" class="text-danger"></span>
+    </div>
+    
+    <!-- Cidade -->
+    <div class="form-group">
+        <label asp-for="cidade" class="control-label"></label>
+        <select asp-for="cidade" class="form-control" id="cidadeSelect">
+            <option value="">Selecione uma cidade</option>
+            @foreach (var cidade in Model.Cidades)
+            {
+                <option value="@cidade.Value">@cidade.Text</option>
+            }
+        </select>
         <span asp-validation-for="cidade" class="text-danger"></span>
     </div>
+
     <div class="form-group">
         <label asp-for="CPF"></label>
         <input asp-for="CPF" class="form-control">
@@ -52,3 +71,31 @@
         <input asp-for="imagem" type="hidden">
     </div>
 </form>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#estadoSelect').change(function() {
+                var estadoId = $(this).val();
+                var cidadeSelect = $('#cidadeSelect');
+                
+                if (estadoId) {
+                    // ✅ Faz requisição AJAX passando o ID do estado
+                    $.getJSON('@Url.Action("GetCidadesPorEstado", "Pacientes")', { stateId: estadoId }, function(data) {
+                        cidadeSelect.empty();
+                        cidadeSelect.append($('<option></option>').val('').text('Selecione uma cidade'));
+                        
+                        $.each(data, function(index, item) {
+                            cidadeSelect.append($('<option></option>').val(item.value).text(item.text));
+                        });
+                    }).fail(function() {
+                        alert('Erro ao carregar cidades.');
+                    });
+                } else {
+                    cidadeSelect.empty();
+                    cidadeSelect.append($('<option></option>').val('').text('Selecione uma cidade'));
+                }
+            });
+        });
+    </script>
+}

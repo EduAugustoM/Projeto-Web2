@@ -1,4 +1,7 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+
 namespace Models.ViewModel;
 
 public class FuncionariosViewModel
@@ -14,6 +17,10 @@ public class FuncionariosViewModel
     [Required(ErrorMessage = "A idade é obrigatório")]
     public int idade { get; set; }
 
+    [Display(Name = "Estado")]
+    [Required(ErrorMessage = "O estado é obrigatório")]
+    public string estado { get; set; } = string.Empty; // ✅ Novo campo estado
+
     [Display(Name = "Cidade")]
     [Required(ErrorMessage = "A cidade é obrigatório")]
     public string cidade { get; set; } = string.Empty;
@@ -25,4 +32,15 @@ public class FuncionariosViewModel
     [Display(Name = "CPF")]
     [Required(ErrorMessage = "O CPF é obrigatório")]
     public string CPF { get; set; } = string.Empty;
+
+    [ValidateNever]
+    public List<SelectListItem> Cidades { get; set; } = new List<SelectListItem>();
+
+    [ValidateNever]
+    public List<SelectListItem> Estados { get; set; } = new List<SelectListItem>();
+    [Display(Name = "Estado")]
+    public string? EstadoNome { get; set; }
+
+    [Display(Name = "Cidade")]
+    public string? CidadeNome { get; set; }
 }

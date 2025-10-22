@@ -18,7 +18,10 @@ builder.Services.AddScoped<AmbulatoriosServices>();
 builder.Services.AddScoped<FuncionariosServices>();
 builder.Services.AddScoped<MedicosServices>();
 builder.Services.AddScoped<PacientesServices>();
-
+builder.Services.AddHttpClient<CidadeServices>(client =>
+{
+    client.BaseAddress = new Uri("http://localhost:5062/");
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
